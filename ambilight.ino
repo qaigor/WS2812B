@@ -8,7 +8,7 @@
 #define auto_bright 1        // автоматическая подстройка яркости от уровня внешнего освещения (1 - включить, 0 - выключить); analog pin 6
 #define max_bright 255       // максимальная яркость (0 - 255)
 #define min_bright 50        // минимальная яркость (0 - 255)
-#define bright_constant 500  // константа усиления от внешнего света (0 - 1023)
+#define bright_constant 1000  // константа усиления от внешнего света (0 - 1023)
 // чем МЕНЬШЕ константа, тем "резче" будет прибавляться яркость
 //----------------------НАСТРОЙКИ-----------------------
 
@@ -40,7 +40,7 @@ void setup()
 
 void loop() {
   if (auto_bright) {                         // если включена адаптивная яркость
-    if (millis() - bright_timer > 100) {     // каждые 100 мс
+    if (millis() - bright_timer > 500) {     // каждые 100 мс
       bright_timer = millis();               // сброить таймер
       new_bright = map(analogRead(LIGHT_PIN), 0, bright_constant, min_bright, max_bright);   // считать показания с фоторезистора, перевести диапазон
       new_bright = constrain(new_bright, min_bright, max_bright);
